@@ -1,0 +1,45 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def login(event=None):  # allow Enter key to trigger login
+    username = entry_username.get()
+    password = entry_password.get()
+    if username == 'admin' and password == '1234@':
+        open_welcome_window()
+    else:
+        messagebox.showerror("Error", "Invalid username or password")
+
+def open_welcome_window():
+    welcome = tk.Toplevel(root)
+    welcome.title("Welcome Window")
+    welcome.geometry('250x150')
+    welcome.resizable(False, False)
+
+    label = tk.Label(welcome, text='Welcome, admin!', font=("Arial", 14))
+    label.pack(pady=20)
+
+    btn_ok = tk.Button(welcome, text='Okay', width=10, command=welcome.destroy)
+    btn_ok.pack(pady=5)
+
+# main window
+root = tk.Tk()
+root.title("Login Form")
+root.geometry('320x220')
+root.resizable(False, False)
+
+tk.Label(root, text='Username:').pack(pady=(20, 5))
+entry_username = tk.Entry(root)
+entry_username.pack()
+
+tk.Label(root, text='Password:').pack(pady=(10, 5))
+entry_password = tk.Entry(root, show='*')
+entry_password.pack()
+
+btn_login = tk.Button(root, text="Login", command=login, width=15)
+btn_login.pack(pady=15)
+
+# Bind Enter key to login
+root.bind('<Return>', login)
+
+entry_username.focus_set()
+root.mainloop()
